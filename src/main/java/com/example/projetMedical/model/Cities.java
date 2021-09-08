@@ -14,7 +14,7 @@ public class Cities {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY) //autoincrement
-    private Integer id;
+    private Integer idCity;
 
     @Basic
     private String nom;
@@ -26,12 +26,13 @@ public class Cities {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cities cities = (Cities) o;
-        return Objects.equals(id, cities.id) && Objects.equals(nom, cities.nom) && Objects.equals(zipCode, cities.zipCode);
+        return Objects.equals(idCity, cities.idCity) && Objects.equals(nom, cities.nom) && Objects.equals(zipCode, cities.zipCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nom, zipCode);
+        return Objects.hash(idCity, nom, zipCode);
     }
 }
+
 
