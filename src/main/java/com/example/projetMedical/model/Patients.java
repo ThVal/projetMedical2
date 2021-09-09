@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 
 @Data
@@ -37,5 +38,16 @@ public class Patients {
     @JoinColumn (name ="idCity")
     private Cities city;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Patients patients = (Patients) o;
+        return Objects.equals(idPatient, patients.idPatient) && Objects.equals(lasName, patients.lasName) && Objects.equals(firstName, patients.firstName) && Objects.equals(email, patients.email) && Objects.equals(phoneNumber, patients.phoneNumber) && Objects.equals(picture, patients.picture) && Objects.equals(city, patients.city);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(idPatient, lasName, firstName, email, phoneNumber, picture, city);
+    }
 }
