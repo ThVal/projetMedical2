@@ -2,7 +2,7 @@ package com.example.projetMedical.model.configuration;
 
 
 import com.example.projetMedical.model.services.UserService;
-import com.example.projetMedical.repositories.UserRepository;
+import com.example.projetMedical.model.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;

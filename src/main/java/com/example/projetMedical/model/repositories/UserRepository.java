@@ -1,4 +1,4 @@
-package com.example.projetMedical.repositories;
+package com.example.projetMedical.model.repositories;
 
 import com.example.projetMedical.model.entities.UsersEntity;
 import org.springframework.data.repository.CrudRepository;
