@@ -1,4 +1,4 @@
-package com.example.projetMedical.model;
+package com.example.projetMedical.model.entities;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.util.Objects;
 @Entity
 @Table(name="patients")
 
-public class Patients {
+public class PatientsEntity {
 
     @Id
     @NotNull
@@ -36,14 +36,14 @@ public class Patients {
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn (name ="idCity")
-    private Cities city;
+    private CitiesEntity city;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Patients patients = (Patients) o;
-        return Objects.equals(idPatient, patients.idPatient) && Objects.equals(lasName, patients.lasName) && Objects.equals(firstName, patients.firstName) && Objects.equals(email, patients.email) && Objects.equals(phoneNumber, patients.phoneNumber) && Objects.equals(picture, patients.picture) && Objects.equals(city, patients.city);
+        PatientsEntity patientsEntity = (PatientsEntity) o;
+        return Objects.equals(idPatient, patientsEntity.idPatient) && Objects.equals(lasName, patientsEntity.lasName) && Objects.equals(firstName, patientsEntity.firstName) && Objects.equals(email, patientsEntity.email) && Objects.equals(phoneNumber, patientsEntity.phoneNumber) && Objects.equals(picture, patientsEntity.picture) && Objects.equals(city, patientsEntity.city);
     }
 
     @Override

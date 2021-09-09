@@ -1,4 +1,4 @@
-package com.example.projetMedical.model;
+package com.example.projetMedical.model.entities;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.util.Objects;
 @Entity
 @Table(name="users")
 
-public class Users {
+public class UsersEntity {
 
     @Id
     @NotNull
@@ -27,6 +27,9 @@ public class Users {
     @Column(nullable = false) // équivalent à mettre @notnull
     private String roles;
 
+    @Column(nullable=false)
+    private String Password;
+
     private String name;
     private String photoUser;
 
@@ -34,8 +37,8 @@ public class Users {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Users users = (Users) o;
-        return Objects.equals(idUser, users.idUser) && Objects.equals(email, users.email) && Objects.equals(roles, users.roles) && Objects.equals(name, users.name) && Objects.equals(photoUser, users.photoUser);
+        UsersEntity usersEntity = (UsersEntity) o;
+        return Objects.equals(idUser, usersEntity.idUser) && Objects.equals(email, usersEntity.email) && Objects.equals(roles, usersEntity.roles) && Objects.equals(name, usersEntity.name) && Objects.equals(photoUser, usersEntity.photoUser);
     }
 
     @Override
