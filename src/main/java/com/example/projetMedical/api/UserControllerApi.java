@@ -43,7 +43,7 @@ public class UserControllerApi {
 
     @PostMapping (path="", produces = "application/json")
     public UsersEntity addUserApi(@RequestBody UsersEntity user) {
-        usersService.addUser(user.getName(),user.getEmail(),user.getPassword(), user.getRoles());
+        usersService.addUser(user.getName(),user.getEmail(),user.getPassword(), user.getRoles(), user.getPhotoUser());
                 return ResponseEntity.status(HttpStatus.CREATED).body((usersService.));
 
     }

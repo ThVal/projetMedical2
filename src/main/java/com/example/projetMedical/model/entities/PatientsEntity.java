@@ -20,7 +20,7 @@ public class PatientsEntity {
 
 
     @Basic
-    private String lasName;
+    private String lastName;
 
     @Basic
     private String firstName;
@@ -43,11 +43,12 @@ public class PatientsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PatientsEntity patientsEntity = (PatientsEntity) o;
-        return Objects.equals(idPatient, patientsEntity.idPatient) && Objects.equals(lasName, patientsEntity.lasName) && Objects.equals(firstName, patientsEntity.firstName) && Objects.equals(email, patientsEntity.email) && Objects.equals(phoneNumber, patientsEntity.phoneNumber) && Objects.equals(picture, patientsEntity.picture) && Objects.equals(city, patientsEntity.city);
+        return Objects.equals(idPatient, patientsEntity.idPatient) && Objects.equals(lastName, patientsEntity.lastName) && Objects.equals(firstName, patientsEntity.firstName) && Objects.equals(email, patientsEntity.email) && Objects.equals(phoneNumber, patientsEntity.phoneNumber) && Objects.equals(picture, patientsEntity.picture) && Objects.equals(city, patientsEntity.city);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idPatient, lasName, firstName, email, phoneNumber, picture, city);
+        return Objects.hash(idPatient, lastName, firstName, email, phoneNumber, picture, city);
     }
+
 }

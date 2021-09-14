@@ -60,7 +60,7 @@ public class UserService {
         if (userOptional.isPresent()) {
             return setAndSaveUser(userOptional.get(), name, email, password, roles, photoUser);
         } else {
-            throw new ObjectNotFoundException(id, "user unknown");
+            throw new ObjectNotFoundException(String.valueOf(id),"user unknown");
         }
 
     }
@@ -73,7 +73,7 @@ public class UserService {
         if (userOptional.isPresent()) {
             userRepository.delete(userOptional.get());
         } else {
-            throw new ObjectNotFoundException(id, "user unknown");
+            throw new ObjectNotFoundException(String.valueOf(id), "user unknown");
 
         }
     }
