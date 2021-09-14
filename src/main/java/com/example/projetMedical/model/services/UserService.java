@@ -75,7 +75,6 @@ public class UserService {
         } else {
             throw new ObjectNotFoundException(id, "user unknown");
 
-
         }
     }
 
