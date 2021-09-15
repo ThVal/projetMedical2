@@ -2,7 +2,7 @@ package com.example.projetMedical.model.services;
 
 import com.example.projetMedical.model.entities.CitiesEntity;
 import com.example.projetMedical.model.repositories.CityRepository;
-import javassist.tools.rmi.ObjectNotFoundException;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,7 +16,8 @@ public class CityService {
 
     private final CityRepository cityRepository;
 
-    public CityService(CityRepository cityRepository) {
+    public CityService(CityRepository cityRepository)
+    {
         this.cityRepository = cityRepository;
     }
 
@@ -25,7 +26,7 @@ public class CityService {
         return (List<CitiesEntity>) cityRepository.findAll();
     }
 
-    public Optional<CitiesEntity> getCityById(int id) {
+    public  Optional<CitiesEntity> getCityById(int id) {
         return cityRepository.findById(id);  // optional gere une éventualité
     }
 
@@ -50,10 +51,8 @@ public class CityService {
     }
 
 
-
-
     @Transactional
-    public void deleteUserById(int id) {
+    public void deleteCityById(int id) {
         Optional<CitiesEntity> cityOptional = getCityById(id);
 
         if (cityOptional.isPresent()) {
@@ -72,27 +71,3 @@ public class CityService {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}

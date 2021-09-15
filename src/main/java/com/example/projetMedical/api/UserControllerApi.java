@@ -17,19 +17,20 @@ public class UserControllerApi {
 
     private UserService usersService;
 
-    public UserControllerApi(UserService usersService) {
+    public UserControllerApi(UserService usersService)
+    {
         this.usersService = usersService;
     }
 
 
     @GetMapping(path = "", produces = "application/json")
     public List<UsersEntity> getUserListApi() {
-        return usersService.getAllusers();
+        return usersService.getAllUsers();
     }
 
 
     @GetMapping(path= "/{id}", produces = "application/json")
-    public UsersEntity getUserByIApi(@PathVariable("id") int id) {
+    public UsersEntity getUserById(@PathVariable("id") int id) {
         Optional<UsersEntity> userOptional = usersService.getUserById(id);
         if (userOptional.isPresent()) {
             return userOptional.get();
@@ -37,20 +38,20 @@ public class UserControllerApi {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "user unknown");
         }
 
-
     }
-
 
     @PostMapping (path="", produces = "application/json")
-    public UsersEntity addUserApi(@RequestBody UsersEntity user) {
-        usersService.addUser(user.getName(),user.getEmail(),user.getPassword(), user.getRoles(), user.getPhotoUser());
-                return ResponseEntity.status(HttpStatus.CREATED).body((usersService.));
+    public ResponseEntity<UsersEntity> addUserApi(@RequestBody UsersEntity userInput) {
+        usersService.addUser(userInput.getName(),userInput.getEmail(),userInput.getPassword(), userInput.getRoles(), userInput.getPhotoUser());
+                return ResponseEntity.status(HttpStatus.CREATED).body(
+                        usersService.addUser(
+                        userInput.getName(),
+                        userInput.getEmail(),
+                        userInput.getPassword(),
+                        userInput.getRoles(),
+                        userInput.getPhotoUser()));
 
     }
-
-
-
-
 
 }
 

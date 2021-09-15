@@ -3,7 +3,7 @@ package com.example.projetMedical.model.services;
 
 import com.example.projetMedical.model.entities.UsersEntity;
 import com.example.projetMedical.model.repositories.UserRepository;
-import javassist.tools.rmi.ObjectNotFoundException;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,7 +21,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<UsersEntity> getAllusers() {
+    public List<UsersEntity> getAllUsers() {
 
         return (List<UsersEntity>) userRepository.findAll();
     }
@@ -42,7 +42,6 @@ public class UserService {
 
     }
 
-
     @Transactional
     // CREATE USER
     public UsersEntity addUser(String name, String email, String password, String roles, String photoUser) {
@@ -60,7 +59,7 @@ public class UserService {
         if (userOptional.isPresent()) {
             return setAndSaveUser(userOptional.get(), name, email, password, roles, photoUser);
         } else {
-            throw new ObjectNotFoundException(String.valueOf(id),"user unknown");
+            throw new ObjectNotFoundException(id,"user unknown");
         }
 
     }
@@ -73,7 +72,7 @@ public class UserService {
         if (userOptional.isPresent()) {
             userRepository.delete(userOptional.get());
         } else {
-            throw new ObjectNotFoundException(String.valueOf(id), "user unknown");
+            throw new ObjectNotFoundException(id, "user unknown");
 
         }
     }
