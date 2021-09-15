@@ -10,7 +10,7 @@ import java.util.Objects;
 @Entity
 @Table(name="cities")
 public class CitiesEntity {
-
+    //test
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY) //autoincrement

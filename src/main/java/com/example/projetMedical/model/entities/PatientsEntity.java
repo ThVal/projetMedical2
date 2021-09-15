@@ -12,7 +12,7 @@ import java.util.Objects;
 @Table(name="patients")
 
 public class PatientsEntity {
-
+    //test
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY) //autoincrement
