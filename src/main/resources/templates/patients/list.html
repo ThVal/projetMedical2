@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:include = "~{ head :: #head}"></head>
+
+
+<body>
+<header></header>
+<main>
+
+    <div class="container">
+
+
+        <table class = "table table-striped">
+            <thead>
+            <tr>
+                <td>id</td>
+                <td>prénom</td>
+                <td>nom</td>
+                <td>email</td>
+                <td>tel</td>
+                <td>photo</td>
+                <td>action</td>
+
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr th:each = "patient : ${patient_list}">
+
+                <td th:utext = "${patient.idPatient}"></td>
+                <td th:utext = "${patient.firstName}"></td>
+                <td th:utext = "${patient.lastName}"></td>
+                <td th:utext = "${patient.email}"></td>
+                <td th:utext = "${patient.phoneNumber}"></td>
+                <td th:utext = "${patient.picture}"></td>
+                <td> <a th:href = @{}</td>
+
+
+            </tr>
+
+            </tbody>
+
+
+
+        </table>
+
+    </div>
+
+
+</main>
+
+
+</body>
+</html>
