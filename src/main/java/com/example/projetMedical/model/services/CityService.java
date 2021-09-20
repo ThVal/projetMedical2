@@ -30,26 +30,37 @@ public class CityService {
         return cityRepository.findById(id);  // optional gere une éventualité
     }
 
-    public CitiesEntity setAndSaveCity(CitiesEntity city,String name, String zipCode) {
+
+    private CitiesEntity setCity(CitiesEntity city, String name, String zipCode) {
         city.setNom(name);
         city.setZipCode(zipCode);
-
-
-        cityRepository.save(city);
         return city;
+
+
+    }
+
+
+
+    @Transactional
+    // CREATE
+    public CitiesEntity addCity(String name, String zipCode) {
+        CitiesEntity city = new CitiesEntity();
+        return cityRepository.save(setCity(city, name, zipCode));
 
     }
 
 
     @Transactional
-    // CREATE USER
-    public CitiesEntity addCity(String name, String zipCode) {
+    public CitiesEntity updateCityById(int id, String name, String zipCode) {
+        Optional<CitiesEntity> cityOptional = getCityById(id);
+        if (cityOptional.isPresent()) {
+            return cityRepository.save(setCity(cityOptional.get(), name, zipCode));
+        } else {
+            throw new ObjectNotFoundException(id, "City not found");
 
-        CitiesEntity city = new CitiesEntity();
-        return setAndSaveCity(city, name, zipCode);
 
+        }
     }
-
 
     @Transactional
     public void deleteCityById(int id) {

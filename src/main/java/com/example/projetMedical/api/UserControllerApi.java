@@ -19,12 +19,14 @@ public class UserControllerApi {
 
     public UserControllerApi(UserService usersService)
     {
+
         this.usersService = usersService;
     }
 
 
     @GetMapping(path = "", produces = "application/json")
     public List<UsersEntity> getUserListApi() {
+
         return usersService.getAllUsers();
     }
 
@@ -53,6 +55,39 @@ public class UserControllerApi {
 
     }
 
+    @PutMapping(path = "/{id}", produces = "application/json")
+    public ResponseEntity<UsersEntity> updateUserApi(@PathVariable("id") int id, @RequestBody UsersEntity userInput) {
+        Optional<UsersEntity> userOptional = usersService.getUserById(id);
+        if (userOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(
+                    usersService.updateUserById(id, userInput.getName(),
+                            userInput.getEmail(),
+                            userInput.getPassword(),
+                            userInput.getRoles(),
+                            userInput.getPhotoUser()));
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The user is not found");
+        }
+    }
+
+    /**
+     * Delete an user
+     */
+    @DeleteMapping(path = "/{id}", produces = "application/json")
+    public ResponseEntity<String> deleteUserApi(@PathVariable("id") int id) {
+        Optional<UsersEntity> userOptional = usersService.getUserById(id);
+        if (userOptional.isPresent()) {
+            usersService.deleteUserById(id);
+            return ResponseEntity.status(HttpStatus.OK).body("User " + id + " deleted");
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The user is not found");
+        }
+    }
+
 }
+
+
+
+
 
 

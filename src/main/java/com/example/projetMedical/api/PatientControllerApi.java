@@ -1,6 +1,8 @@
 package com.example.projetMedical.api;
+
 import com.example.projetMedical.model.entities.PatientsEntity;
 import com.example.projetMedical.model.services.PatientService;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,17 +43,60 @@ public class PatientControllerApi {
 
     @PostMapping (path="", produces = "application/json")
     public ResponseEntity<PatientsEntity> addPatientApi(@RequestBody PatientsEntity patientInput) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(
+                    patientService.addPatient(
+                            patientInput.getFirstName(),
+                            patientInput.getLastName(),
+                            patientInput.getEmail(),
+                            patientInput.getPhoneNumber(),
+                            patientInput.getPicture(),
+                            patientInput.getCity().getIdCity()));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(
-                patientService.addPatient(
-                        patientInput.getFirstName(),
-                        patientInput.getLastName(),
-                        patientInput.getEmail(),
-                        patientInput.getPhoneNumber(),
-                        patientInput.getPicture(),
-                        patientInput.getCity().getIdCity()));
+        } catch (ObjectNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, " City " + patientInput.getCity().getIdCity() + " not found");
+        }
 
     }
 
 
-}
+    @PutMapping(path= "/{id}", produces = "application/json")
+    public ResponseEntity<PatientsEntity> editPatientApi(@PathVariable("id") int id, @RequestBody PatientsEntity patientInput) {
+            Optional<PatientsEntity> patientOptional = patientService.getPatientById(id);
+            if (patientOptional.isPresent()) {
+                try {
+                    return ResponseEntity.status(HttpStatus.ACCEPTED).body(
+                            patientService.updatePatientById(id,
+                                    patientInput.getFirstName(),
+                                    patientInput.getLastName(),
+                                    patientInput.getEmail(),
+                                    patientInput.getPhoneNumber(),
+                                    patientInput.getPicture(),
+                                    patientInput.getCity().getIdCity()));
+
+                } catch (ObjectNotFoundException e) {
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, " City " + patientInput.getCity().getIdCity() + " not found");
+                }
+            } else {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The patient is not found");
+            }
+        }
+
+
+
+    @DeleteMapping(path="/{id}", produces = "application/json")
+    public ResponseEntity<String> deletePatientApi(@PathVariable("id") int id) { // pourquoi String ?
+
+            Optional<PatientsEntity> patientOptional = patientService.getPatientById(id);
+            if (patientOptional.isPresent()) {
+                patientService.deletePatientById(id);
+                return ResponseEntity.status(HttpStatus.OK).body("Patient " + id + " deleted");
+
+            } else {
+
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The patient is not found");
+            }
+        }
+
+    }
+
